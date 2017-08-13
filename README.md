@@ -4,7 +4,7 @@ GCL is intended to be a type-safe alternative to JSON, YAML (...) based on the `
 
 ## Advantages
 
-* Autocompletion & valdiation for configuration files
+* Autocompletion & validation for configuration files
 * Out-of-the-box documentation for config DSLs
 * Easy schema definition through SDL for tooling authors
 * Leverages available GraphQL tooling (parsers etc) for cross-language adoption
