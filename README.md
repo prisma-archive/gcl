@@ -65,6 +65,11 @@ input DeployRestartPolicy {
 }
 ```
 
+## TODO
+
+- [ ] PoC based on GraphiQL for auto-completion (removing the top-level query)
+- [ ] Integrate with [graphql-language-service](https://github.com/graphql/graphql-language-service)
+
 
 ## GraphQL changes that would enhance GCL
 
