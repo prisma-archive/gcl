@@ -67,6 +67,7 @@ input DeployRestartPolicy {
 
 ## TODO
 
+- [ ] Decide on "Add back top level curly brackets #1"
 - [ ] PoC based on GraphiQL for auto-completion (removing the top-level query)
 - [ ] Integrate with [graphql-language-service](https://github.com/graphql/graphql-language-service)
 
