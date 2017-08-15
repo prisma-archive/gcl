@@ -15,14 +15,15 @@ type Query {
 }
 
 input Module {
-  database: Database!
+  databaseSchema: DatabaseSchema!
   functions: [Function!]
-  permissions: [Permission!]!
+  modelPermissions: [ModelPermission!]!
+  relationPermissions: [RelationPermission!]!
   pats: [PermanentAuthenticationToken!]
   modules: [Module!]
 }
 
-input Database {
+input DatabaseSchema {
   src: String!
 }
 
@@ -31,7 +32,25 @@ input Function {
   description: String
   isEnabled: Boolean = true
   handler: FunctionHandler!
-  event: FunctionEvent!
+  event: FunctionEvent
+  serversideSubscription: ServersideSubscription
+  nodeCallback: NodeCallback
+}
+
+input NodeCallback {
+  target: String!
+  operation: FunctionEventNodeCallbackOperation!
+  step: RequestPipelineSteps!
+  order: Int!
+}
+
+input ServersideSubscription {
+  subscriptionQuery: ServersideSubscriptionQuery
+  schemaExtension: ServersideSubscriptionQuery
+}
+
+input ServersideSubscriptionQuery {
+  src: String!
 }
 
 input FunctionHandler {
@@ -83,7 +102,7 @@ input FunctionEventNodeCallback {
   order: Int
 }
 
-enum FunctionEventNodeCallbackOperation { Create, Update, Delete, Connect, Disconnect }
+enum FunctionEventNodeCallbackOperation { CREATE, UPDATE, DELETE, CONNECT, DISCONNECT }
 
 enum FunctionEventNodeCallbackStep {
   BeforeValidation
@@ -91,7 +110,27 @@ enum FunctionEventNodeCallbackStep {
   AfterWrite
 }
 
-input Permission {
+enum RequestPipelineSteps {
+  TRANSFORM_REQUEST
+  TRANSFORM_ARGUMENT
+  PRE_WRITE
+  TRANSFORM_PAYLOAD
+  TRANSFORM_RESPONSE
+}
+
+input RelationPermission {
+  description: String
+  isEnabled: Boolean = true
+  #operation: [String!]! # alternative idea: parameters by @nilan
+  authenticated: Boolean = false
+  query: PermissionQuery
+  fields: [String!] # wildcard syntax to limit intersection
+  relation: String!
+  disconnect: Boolean!
+  connect: Boolean!
+}
+
+input ModelPermission {
   description: String
   isEnabled: Boolean = true
   #operation: [String!]! # alternative idea: parameters by @nilan

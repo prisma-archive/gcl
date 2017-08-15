@@ -6,22 +6,27 @@ export default function gclToJson(
   gcl: string,
   schemaString: string,
 ): Promise<any> {
-  const query = wrapGcl(gcl)
-  const schema = buildSchema(schemaString)
-
-  let inputObject: any = null
-  const root = {
-    config(input) {
-      inputObject = input
-      return true
-    },
-  }
-
   return new Promise((resolve, reject) => {
+    const query = wrapGcl(gcl)
+    const schema = buildSchema(schemaString)
+
+    let inputObject: any = null
+    const root = {
+      config(input) {
+        inputObject = input
+        return true
+      },
+    }
+
     graphql(schema, query, root)
-      .then(() => {
-        resolve(inputObject)
+      .then(res => {
+        if (res.errors) {
+          return reject(res)
+        }
+        resolve(inputObject.gcl)
       })
-      .catch(reject)
+      .catch(e => {
+        reject(e)
+      })
   })
 }
