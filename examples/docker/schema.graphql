@@ -1,0 +1,30 @@
+type Query {
+  config(gcl: Root): Boolean
+}
+
+input Root {
+  image: String
+  ports: [String!]
+  networks: [String!]
+  depends_on: [String!]
+  volumes: [String!]
+  deploy: Deploy
+}
+
+input Deploy {
+  replicas: Int
+  update_config: DeployUpdateConfig
+  restart_policy: DeployRestartPolicy
+}
+
+input DeployUpdateConfig {
+  parallelism: Int
+}
+
+enum DeployRestartPolicyCondition {
+  OnFailure
+}
+
+input DeployRestartPolicy {
+  condition: DeployRestartPolicyCondition
+}

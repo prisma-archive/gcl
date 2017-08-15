@@ -1,0 +1,14 @@
+{
+  image: "node:6.10"
+  ports: ["80"]
+  networks: ["frontend"]
+  deploy: {
+    replicas: 2
+    update_config: {
+      parallelism: 2
+    }
+    restart_policy: {
+      condition: OnFailure
+    }
+  }
+}

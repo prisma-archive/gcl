@@ -1,0 +1,122 @@
+{
+  databaseSchema: {
+    src: "./databaseSchema/project.graphql"
+  }
+  modelPermissions: [{
+    description: "some description"
+    isEnabled: true
+    operation: "Todo.READ"
+    authenticated: true
+    query: {
+      src: "./permissions/cj6ck6o9i0000wd98eyplfjn2.graphql"
+    }
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "Todo.READ"
+    authenticated: false
+    query: {
+      src: "./permissions/cj6ck6o9n0001wd98cpatb52d.graphql"
+    }
+    fields: ["todo.status"]
+  }, {
+    isEnabled: true
+    operation: "Comment.READ"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "Comment.CREATE"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "Comment.UPDATE"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "Comment.DELETE"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "User.READ"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "User.CREATE"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "User.UPDATE"
+    authenticated: false
+    fields: ["*"]
+  }, {
+    isEnabled: true
+    operation: "User.DELETE"
+    authenticated: false
+    fields: ["*"]
+  }]
+  relationPermissions: [{
+    isEnabled: true
+    relation: "CommentToTodo"
+    connect: true
+    disconnect: false
+    authenticated: true
+    query: {
+      src: "./permissions/pid.graphql"
+    }
+  }, {
+    isEnabled: true
+    relation: "CommentToTodo"
+    connect: true
+    disconnect: true
+    authenticated: false
+  }]
+  functions: [{
+    name: "chargeCreditCard"
+    isEnabled: true
+    handler: {
+      code: {
+        src: "./code/chargeCreditCard.js"
+      }
+    }
+    nodeCallback: {
+      target: "Todo"
+      operation: CREATE
+      step: TRANSFORM_RESPONSE
+      order: 0
+    }
+  }, {
+    name: "sendReceiptToCustomer"
+    isEnabled: true
+    handler: {
+      webhook: {
+        url: "some.url"
+        headers: []
+      }
+    }
+    serversideSubscription: {
+      subscriptionQuery: {
+        src: "./code/sendReceiptToCustomer.graphql"
+      }
+    }
+  }, {
+    name: "checkAvailability"
+    isEnabled: true
+    handler: {
+      code: {
+        src: "./code/checkAvailability.js"
+      }
+    }
+    serversideSubscription: {
+      schemaExtension: {
+        src: "./code/checkAvailability.graphql"
+      }
+    }
+  }]
+  pats: []
+}
