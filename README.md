@@ -75,3 +75,27 @@ input DeployRestartPolicy {
 ## GraphQL changes that would enhance GCL
 
 * Multi-line strings ([PR](https://github.com/facebook/graphql/pull/327))
+
+
+## Library Usage
+```js
+import fs from 'fs'
+import gclToJson from 'gcl-lib'
+
+async function run() {
+  const schema = fs.readFileSync('schema.graphql', 'utf-8')
+  const config = fs.readFileSync('config.gcl', 'utf-8')
+
+  const json = await gclToJson(config, schema)
+
+  console.log(JSON.stringify(json, null, 2))
+}
+
+run()
+```
+
+## CLI Usage
+```bash
+$ npm install -g gcl-lib
+$ gcl-json -s schema.graphql -c config.gcl
+```
