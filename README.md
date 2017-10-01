@@ -1,5 +1,7 @@
 # GCL: GraphQL Configuration Language
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/graphcool/gcl.svg)](https://greenkeeper.io/)
+
 GCL is intended to be a type-safe alternative to JSON, YAML (...) based on the `input` type syntax of GraphQL
 
 ## Advantages
